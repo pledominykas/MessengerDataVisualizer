@@ -58,7 +58,7 @@ namespace MessengerDataVisualizer
                 chats.Add(new ChatModel(title, messages, participants));
             }
 
-            return null;
+            return chats;
         }
 
         /// <summary>
