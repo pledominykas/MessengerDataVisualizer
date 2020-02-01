@@ -12,24 +12,75 @@ namespace MessengerDataVisualizer.Models
     /// </summary>
     class GlobalStatisticsModel
     {
-        public ReadOnlyCollection<FriendModel> Friends;
-        public ReadOnlyCollection<ChatModel> Chats;
-        public ReadOnlyCollection<CommentModel> Comments;
+        public readonly string PersonName = "Dominykas Plesevicius";
+        public List<FriendModel> Friends;
+        public List<ChatModel> Chats;
+        public List<CommentModel> Comments;
+
+        public int MessagesSent { get; private set; }
+        public int MessagesReceived { get; private set; }
+        public int TotalMessages { get; private set; }
+        public List<ChatModel> ChatsByMessageCount { get; private set; }
+        public List<ChatModel> ChatsByTime { get; private set; }
+        public List<FriendModel> FriendsByTime { get; private set; }
+        public List<CommentModel> CommentsByTime { get; private set; }
+        public Dictionary<FriendModel, int> FriendTagCount { get; private set; }
+
+        public bool IncludeGroupChats = false;
+        
 
         public GlobalStatisticsModel(List<FriendModel> friends, List<ChatModel> chats, List<CommentModel> comments)
         {
-            Friends = new ReadOnlyCollection<FriendModel>(friends);
-            Chats = new ReadOnlyCollection<ChatModel>(chats);
-            Comments = new ReadOnlyCollection<CommentModel>(comments);
+            Friends = friends;
+            Chats = chats;
+            Comments = comments;
             CalculateStatistics();
         }
 
         /// <summary>
-        /// Calculates all of the statistics shown on the main page in one iteration
+        /// Calculates all of the statistics shown on the main page
         /// </summary>
         private void CalculateStatistics()
         {
+            CalculateMessageCounts();
+            ChatsByMessageCount = Chats.OrderByDescending(chat => chat.Messages.Count).ToList();
+            ChatsByTime = Chats.OrderBy(chat => chat.GetFirstMessageTime()).ToList();
+            FriendsByTime = Friends.OrderBy(friend => friend.FriendshipStartTime).ToList();
+            CommentsByTime = Comments.OrderBy(comment => comment.TimeOfComment).ToList();
+            FindFriendTagCount();
 
+            if(IncludeGroupChats == false)
+            {
+                ChatsByMessageCount = ChatsByMessageCount.Where(chat => chat.Participants.Count == 2).ToList();
+                ChatsByTime = ChatsByTime.Where(chat => chat.Participants.Count == 2).ToList();
+            }
+        }
+
+        /// <summary>
+        /// Calculates sent, received and total messages
+        /// </summary>
+        private void CalculateMessageCounts()
+        {
+            MessagesSent = 0;
+            MessagesReceived = 0;
+            foreach(ChatModel chat in Chats)
+            {
+                MessagesSent += chat.GetMessageCountBySender(PersonName);
+                TotalMessages += chat.Messages.Count;
+            }
+            MessagesReceived = TotalMessages - MessagesSent;
+        }
+
+        /// <summary>
+        /// Finds how many times a friend was tagged in your comments
+        /// </summary>
+        private void FindFriendTagCount()
+        {
+            FriendTagCount = new Dictionary<FriendModel, int>();
+            foreach(FriendModel friend in Friends)
+            {
+                FriendTagCount.Add(friend, Comments.Count(comment => comment.IncludesFriendTag(friend)));
+            }
         }
     }
 }

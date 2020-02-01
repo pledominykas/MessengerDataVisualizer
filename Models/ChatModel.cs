@@ -22,5 +22,19 @@ namespace MessengerDataVisualizer.Models
             Messages = new ReadOnlyCollection<MessageModel>(messages);
             Participants = new ReadOnlyCollection<string>(participants);
         }
+
+        public int GetMessageCountBySender(string sender)
+        {
+            return Messages.Count(message => message.Sender == sender);
+        }
+
+        public DateTime GetFirstMessageTime()
+        {
+            if(Messages.Count >= 2)
+            {
+                return Messages[Messages.Count - 2].TimeSent; //-2 since the first message sent is ussually the automatic wave to a new friend message
+            }
+            return DateTime.MaxValue;
+        }
     }
 }

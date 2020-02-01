@@ -19,5 +19,15 @@ namespace MessengerDataVisualizer.Models
             Content = content;
             TimeOfComment = timeOfComment;
         }
+
+        /// <summary>
+        /// Checks wether the specified friend is tagged in this comment
+        /// </summary>
+        /// <param name="friend">Friend whos tag to look for</param>
+        /// <returns>True if friend is tagged false otherwise</returns>
+        public bool IncludesFriendTag(FriendModel friend)
+        {
+            return Content.Contains(friend.Name);
+        }
     }
 }

@@ -12,7 +12,6 @@ namespace MessengerDataVisualizer.Models
     class FriendModel
     {
         public string Name { get; }
-        public ChatModel Chat { get; private set; }
         public DateTime FriendshipStartTime { get; }
 
         public FriendModel(string name, DateTime friendshipStartTime)
