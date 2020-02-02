@@ -9,7 +9,7 @@ namespace MessengerDataVisualizer.Models
     /// <summary>
     /// Class for containing comment data
     /// </summary>
-    class CommentModel
+    public class CommentModel
     {
         public string Content { get; }
         public DateTime TimeOfComment { get; }

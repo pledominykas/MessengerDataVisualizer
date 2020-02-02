@@ -9,7 +9,7 @@ namespace MessengerDataVisualizer.Models
     /// <summary>
     /// Class for containing data of your current friends
     /// </summary>
-    class FriendModel
+    public class FriendModel
     {
         public string Name { get; }
         public DateTime FriendshipStartTime { get; }

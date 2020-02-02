@@ -10,7 +10,7 @@ namespace MessengerDataVisualizer.Models
     /// <summary>
     /// Class for containing data of a specific group or private chat
     /// </summary>
-    class ChatModel
+    public class ChatModel
     {
         public string Title { get; }
         public ReadOnlyCollection<MessageModel> Messages { get; }

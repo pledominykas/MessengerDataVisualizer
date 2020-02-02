@@ -10,7 +10,7 @@ namespace MessengerDataVisualizer.Models
     /// <summary>
     /// Class for containing and calculating all of the statistics shown on the main (front) page
     /// </summary>
-    class GlobalStatisticsModel
+    public class GlobalStatisticsModel
     {
         public readonly string PersonName = "Dominykas Plesevicius";
         public List<FriendModel> Friends;

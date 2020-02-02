@@ -5,8 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MessengerDataVisualizer.Views"
         mc:Ignorable="d"
-        Title="Messenger Data Visualizer" Height="450" Width="800">
+        Title="Messenger Data Visualizer" Height="700" Width="1200"
+        Background="#f1f1f1">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         
+        <!--Column 1 (Sidebar)-->
+        <Border Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Padding="10,20,10,10" Background="White">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
+            </Border.Effect>
+            <DockPanel>
+                <TextBox DockPanel.Dock="Top" FontSize="16" Margin="0,0,0,30" Padding="10,2,10,2">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="13"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <ScrollViewer DockPanel.Dock="Bottom" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Chats}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
+                                    <Ellipse Height="40" Width="40">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding ChatIcon}"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                                        <TextBlock Text="{Binding Title}" Margin="0,2,0,0"/>
+                                        <TextBlock Text="{Binding ChatType}" Opacity="0.5"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+
     </Grid>
 </Window>

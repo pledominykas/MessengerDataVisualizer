@@ -9,7 +9,7 @@ namespace MessengerDataVisualizer.Models
     /// <summary>
     /// Class for containing specific message data
     /// </summary>
-    class MessageModel
+    public class MessageModel
     {
         public string Content { get; }
         public string Sender { get; }
