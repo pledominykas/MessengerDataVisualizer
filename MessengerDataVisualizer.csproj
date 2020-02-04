@@ -82,7 +82,15 @@
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="ParseUtils.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
+    <Compile Include="ViewModels\DragArchiveDirectoryViewModel.cs" />
+    <Compile Include="ViewModels\GlobalStatisticsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\DragArchiveDirectoryView.xaml.cs">
+      <DependentUpon>DragArchiveDirectoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GlobalStatisticsView.xaml.cs">
+      <DependentUpon>GlobalStatisticsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -116,6 +124,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\DragArchiveDirectoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GlobalStatisticsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

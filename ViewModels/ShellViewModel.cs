@@ -9,10 +9,15 @@ using MessengerDataVisualizer.Models;
 
 namespace MessengerDataVisualizer.ViewModels
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : Conductor<object>
     {
         public GlobalStatisticsModel Statistics { get; private set; }
         public List<ChatViewModel> Chats { get; private set; }
+
+        public ShellViewModel()
+        {
+            ActivateItem(new DragArchiveDirectoryViewModel());
+        }
 
         /// <summary>
         /// Reads the the facebook archive and displays statistics and chats
@@ -47,6 +52,8 @@ namespace MessengerDataVisualizer.ViewModels
                 string path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
                 ReadArhive(path);
             }
+
+            ActivateItem(new GlobalStatisticsViewModel());
         }
     }
 }
