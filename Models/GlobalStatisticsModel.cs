@@ -20,13 +20,10 @@ namespace MessengerDataVisualizer.Models
         public int MessagesSent { get; private set; }
         public int MessagesReceived { get; private set; }
         public int TotalMessages { get; private set; }
-        public List<ChatModel> ChatsByMessageCount { get; private set; }
         public List<ChatModel> ChatsByTime { get; private set; }
         public List<FriendModel> FriendsByTime { get; private set; }
         public List<CommentModel> CommentsByTime { get; private set; }
         public Dictionary<FriendModel, int> FriendTagCount { get; private set; }
-
-        public bool IncludeGroupChats = false;
         
 
         public GlobalStatisticsModel(List<FriendModel> friends, List<ChatModel> chats, List<CommentModel> comments)
@@ -43,17 +40,10 @@ namespace MessengerDataVisualizer.Models
         private void CalculateStatistics()
         {
             CalculateMessageCounts();
-            ChatsByMessageCount = Chats.OrderByDescending(chat => chat.Messages.Count).ToList();
             ChatsByTime = Chats.OrderBy(chat => chat.GetFirstMessageTime()).ToList();
             FriendsByTime = Friends.OrderBy(friend => friend.FriendshipStartTime).ToList();
             CommentsByTime = Comments.OrderBy(comment => comment.TimeOfComment).ToList();
             FindFriendTagCount();
-
-            if(IncludeGroupChats == false)
-            {
-                ChatsByMessageCount = ChatsByMessageCount.Where(chat => chat.Participants.Count == 2).ToList();
-                ChatsByTime = ChatsByTime.Where(chat => chat.Participants.Count == 2).ToList();
-            }
         }
 
         /// <summary>

@@ -11,26 +11,11 @@ namespace MessengerDataVisualizer.ViewModels
 {
     public class ShellViewModel : Conductor<object>
     {
-        public GlobalStatisticsModel Statistics { get; private set; }
         public List<ChatViewModel> Chats { get; private set; }
 
         public ShellViewModel()
         {
             ActivateItem(new DragArchiveDirectoryViewModel());
-        }
-
-        /// <summary>
-        /// Reads the the facebook archive and displays statistics and chats
-        /// </summary>
-        /// <param name="path">Path of the facebook archive</param>
-        private void ReadArhive(string path)
-        {
-            Statistics = DataInput.ReadData(path);
-            Chats = new List<ChatViewModel>();
-            foreach (ChatModel chat in Statistics.Chats)
-                Chats.Add(new ChatViewModel(chat));
-
-            NotifyOfPropertyChange(() => Chats);
         }
 
         /// <summary>
@@ -50,10 +35,14 @@ namespace MessengerDataVisualizer.ViewModels
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-                ReadArhive(path);
-            }
+                GlobalStatisticsViewModel globalStats = new GlobalStatisticsViewModel(path);
+                Chats = new List<ChatViewModel>();
+                foreach (ChatModel chat in globalStats.Statistics.Chats)
+                    Chats.Add(new ChatViewModel(chat));
 
-            ActivateItem(new GlobalStatisticsViewModel());
+                NotifyOfPropertyChange(() => Chats);
+                ActivateItem(globalStats);
+            }
         }
     }
 }

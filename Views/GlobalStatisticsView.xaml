@@ -5,9 +5,68 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MessengerDataVisualizer.Views"
              mc:Ignorable="d" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              d:DesignHeight="450" d:DesignWidth="800"
-             Background="Aqua">
-    <Grid>
+             Background="#f1f1f1">
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <!--Row 0-->
+            <Border Grid.Row="0" Grid.Column="0" Background="White" Padding="20" CornerRadius="5" Margin="20">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
+                </Border.Effect>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding MessagesSent, StringFormat='Messages sent: {0}'}" FontSize="22"/>
+                    <TextBlock Text="{Binding MessagesReceived, StringFormat='Messages received: {0}'}" FontSize="22"/>
+                    <TextBlock Text="{Binding TotalMessages, StringFormat='Total messages: {0}'}" FontSize="22"/>
+                </StackPanel>
+            </Border>
+
+            <!--Row 1-->
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="White" Padding="20" CornerRadius="5" Margin="20">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="10,0,0,15" FontSize="18" Text="Chats by message count:" />
+                    <CheckBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding IncludeGroupChats}" Margin="0,0,20,0">Include group chats</CheckBox>
+                    <ComboBox VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Width="110" ItemsSource="{Binding ChatsByMessageCountTimeFrame}" SelectedItem="{Binding ChatsByMessageCountSelectedTimeFrame}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Key}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <lvc:CartesianChart Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" MinHeight="400" Series="{Binding ChatsByMessageCount}">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Labels="{Binding ChatsByMessageCountLabels}"></lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                    </lvc:CartesianChart>
+                </Grid>
+            </Border>
             
-    </Grid>
+            <!--Row 2-->
+
+        </Grid>
+    </ScrollViewer>
 </UserControl>
