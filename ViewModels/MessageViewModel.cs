@@ -24,6 +24,14 @@ namespace MessengerDataVisualizer.ViewModels
             }
         }
 
+        public string TimeSent
+        {
+            get
+            {
+                return Message.TimeSent.ToString("yyyy-MM-dd H:mm");
+            }
+        }
+
         public string Color
         {
             get

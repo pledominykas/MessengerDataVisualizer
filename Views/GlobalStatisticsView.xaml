@@ -20,6 +20,8 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
             <!--Row 0 (Messages and your info)-->
@@ -106,8 +108,12 @@
 
             </Border>
             
-            <!--Row 3 (Comments by time)-->
-
+            <!--Row 3 (Friends by time)-->
+            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Background="White" Padding="20" CornerRadius="5" Margin="20">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
+                </Border.Effect>
+            </Border>
             <!--Row 4 (Friend tag count)-->
         </Grid>
     </ScrollViewer>

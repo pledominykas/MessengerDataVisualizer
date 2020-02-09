@@ -7,10 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="#f1f1f1">
-    <Border CornerRadius="15">
+    <Border>
         <DockPanel>
-            <Border DockPanel.Dock="Top" Background="#2195f2" Padding="5">
-                <TextBlock Text="{Binding Title}" FontSize="14"/>
+            <Border DockPanel.Dock="Top" Background="#2195f2" Padding="10,6" CornerRadius="5,5,0,0">
+                <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="Bold" Foreground="White"/>
             </Border>
             <ScrollViewer DockPanel.Dock="Bottom">
                 <ItemsControl ItemsSource="{Binding Messages}">
@@ -21,8 +21,8 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock />
+                            <StackPanel Orientation="Vertical" Margin="2,3">
+                                <TextBlock Text="{Binding TimeSent}" FontSize="12" HorizontalAlignment="{Binding Alignment}" Foreground="#606060"/>
                                 <Border Background="{Binding Color}" CornerRadius="3" Padding="5" HorizontalAlignment="{Binding Alignment}">
                                     <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding Content}" Foreground="White"/>
                                 </Border>
