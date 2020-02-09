@@ -14,15 +14,16 @@ namespace MessengerDataVisualizer.ViewModels
     class GlobalStatisticsViewModel : Screen
     {
         private const int ChatsByMessageCount_DISPLAY_COUNT = 15;
+        private const int FirstChats_DISPLAY_COUNT = 4;
 
         public GlobalStatisticsModel Statistics { get; }
 
         public GlobalStatisticsViewModel(string archivePath)
         {
-            Statistics = DataInput.ReadData(archivePath);
+            Statistics = DataInput.ReadData(archivePath);                
         }
 
-        #region Row 1
+        #region Row 0
         public int MessagesSent
         {
             get
@@ -48,7 +49,7 @@ namespace MessengerDataVisualizer.ViewModels
         }
         #endregion
 
-        #region Row 2
+        #region Row 1
         public SeriesCollection ChatsByMessageCount
         {
             get
@@ -135,5 +136,37 @@ namespace MessengerDataVisualizer.ViewModels
             return filteredChats.Take(ChatsByMessageCount_DISPLAY_COUNT);
         }
         #endregion
+
+        #region Row 2
+
+        private List<ChatViewModel> _firstChats = new List<ChatViewModel>();
+        public List<ChatViewModel> FirstChats
+        {
+            get
+            {
+                if(_firstChats.Count == 0) { LoadFirstChats(); }
+                return _firstChats;
+            }
+        }
+
+        private void LoadFirstChats()
+        {
+            for (int i = 0; i < FirstChats_DISPLAY_COUNT; i++)
+            {
+                ChatViewModel chat = new ChatViewModel(Statistics.ChatsByTime[i]);
+                chat.LoadMessages();
+                _firstChats.Add(chat);
+            }
+        }
+
+        public void LoadMoreMessages()
+        {
+            foreach (ChatViewModel chat in FirstChats)
+                chat.LoadMessages();
+
+            NotifyOfPropertyChange(() => FirstChats);
+        }
+        #endregion
+
     }
 }

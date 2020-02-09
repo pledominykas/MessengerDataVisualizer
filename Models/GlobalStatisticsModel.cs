@@ -12,7 +12,7 @@ namespace MessengerDataVisualizer.Models
     /// </summary>
     public class GlobalStatisticsModel
     {
-        public readonly string PersonName = "Dominykas Plesevicius";
+        public static string PersonName = "Dominykas Plesevicius";
         public List<FriendModel> Friends;
         public List<ChatModel> Chats;
         public List<CommentModel> Comments;

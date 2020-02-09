@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MessengerDataVisualizer.Views"
              mc:Ignorable="d" 
+             xmlns:cal="http://www.caliburnproject.org"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              d:DesignHeight="450" d:DesignWidth="800"
              Background="#f1f1f1">
@@ -21,7 +22,7 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <!--Row 0-->
+            <!--Row 0 (Messages and your info)-->
             <Border Grid.Row="0" Grid.Column="0" Background="White" Padding="20" CornerRadius="5" Margin="20">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
@@ -33,7 +34,14 @@
                 </StackPanel>
             </Border>
 
-            <!--Row 1-->
+            <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Background="White" Padding="20" CornerRadius="5" Margin="20">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
+                </Border.Effect>
+                <TextBlock Text="Your information:" FontSize="18"/>
+            </Border>
+
+            <!--Row 1 (Chats by message count)-->
             <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="White" Padding="20" CornerRadius="5" Margin="20">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
@@ -65,8 +73,42 @@
                 </Grid>
             </Border>
             
-            <!--Row 2-->
+            <!--Row 2 (Chats by time)-->
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Background="White" Padding="20" CornerRadius="5" Margin="20">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="10,0,0,15" FontSize="18" Text="Your first facebook chats:"/>
+                    <Button x:Name="LoadMoreMessages" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="3,4,3,4">Load more messages</Button>
+                    <ItemsControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,5,0,0" ItemsSource="{Binding FirstChats}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="1" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ContentControl Width="180" Height="230" cal:View.Model="{Binding}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
 
+            </Border>
+            
+            <!--Row 3 (Comments by time)-->
+
+            <!--Row 4 (Friend tag count)-->
         </Grid>
     </ScrollViewer>
 </UserControl>
