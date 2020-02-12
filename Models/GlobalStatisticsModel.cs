@@ -40,7 +40,7 @@ namespace MessengerDataVisualizer.Models
         private void CalculateStatistics()
         {
             CalculateMessageCounts();
-            ChatsByTime = Chats.OrderBy(chat => chat.GetFirstMessageTime()).ToList();
+            ChatsByTime = Chats.OrderBy(chat => chat.GetFirstMessageTime()).Where(chat => !chat.Title.Contains("Facebook")).ToList();
             SetFriendTagCount();
         }
 
