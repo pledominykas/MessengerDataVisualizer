@@ -41,7 +41,23 @@
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
                 </Border.Effect>
-                <TextBlock Text="Your information:" FontSize="18"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Your information:" FontSize="18"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding FullName, StringFormat='Full name: {0}'}" FontSize="15"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding RegistrationDate, StringFormat='Registration date: {0}'}" FontSize="15"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding ProfileURL, StringFormat='Profile url: {0}'}" FontSize="15"/>
+                </Grid>
             </Border>
 
             <!--Row 1 (Chats by message count)-->

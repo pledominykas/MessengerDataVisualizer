@@ -12,10 +12,11 @@ namespace MessengerDataVisualizer.Models
     /// </summary>
     public class GlobalStatisticsModel
     {
-        public static string PersonName = "Dominykas Plesevicius";
+        public static string PersonName;
         public List<FriendModel> Friends;
         public List<ChatModel> Chats;
         public List<CommentModel> Comments;
+        public YourProfileModel Profile;
 
         public int MessagesSent { get; private set; }
         public int MessagesReceived { get; private set; }
@@ -23,11 +24,13 @@ namespace MessengerDataVisualizer.Models
         public List<ChatModel> ChatsByTime { get; private set; }
         
 
-        public GlobalStatisticsModel(List<FriendModel> friends, List<ChatModel> chats, List<CommentModel> comments)
+        public GlobalStatisticsModel(List<FriendModel> friends, List<ChatModel> chats, List<CommentModel> comments, YourProfileModel profile)
         {
             Friends = friends;
             Chats = chats;
             Comments = comments;
+            Profile = profile;
+            PersonName = Profile.FullName;
             CalculateStatistics();
         }
 

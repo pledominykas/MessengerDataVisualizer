@@ -15,6 +15,7 @@ namespace MessengerDataVisualizer
         private const string COMMENT_FILE = @"\comments\comments.json";
         private const string INBOX_DIRECTORY = @"\messages\inbox";
         private const string FRIEND_FILE = @"\friends\friends.json";
+        private const string PROFILE_FILE = @"\profile_information\profile_information.json";
 
 
         /// <summary>
@@ -27,8 +28,9 @@ namespace MessengerDataVisualizer
             List<CommentModel> comments = ReadComments(archiveDirectory);
             List<FriendModel> friends = ReadFriends(archiveDirectory);
             List<ChatModel> chats = ReadChats(archiveDirectory);
+            YourProfileModel profile = ReadProfile(archiveDirectory);
 
-            return new GlobalStatisticsModel(friends, chats, comments);
+            return new GlobalStatisticsModel(friends, chats, comments, profile);
         }
 
         /// <summary>
@@ -165,6 +167,29 @@ namespace MessengerDataVisualizer
             }
 
             return friends;
+        }
+
+        /// <summary>
+        /// Reads profile information from the profile_information.json file
+        /// </summary>
+        /// <param name="archiveDirectory">Path to the facebook archive directory</param>
+        /// <returns>A YourProfileModel object</returns>
+        private static YourProfileModel ReadProfile(string archiveDirectory)
+        {
+            string profileFile = archiveDirectory + PROFILE_FILE;
+            string json = File.ReadAllText(profileFile);
+            JObject parsedJson = JObject.Parse(json);
+
+            string name = parsedJson.SelectToken("profile.name.full_name").ToString();
+            DateTime registrationDate = ParseUtils.GetDateTimeFromTimeStamp(
+                long.Parse(parsedJson.SelectToken("profile.registration_timestamp").ToString()));
+            DateTime birthDate = new DateTime(
+                int.Parse(parsedJson.SelectToken("profile.birthday.year").ToString()),
+                int.Parse(parsedJson.SelectToken("profile.birthday.month").ToString()),
+                int.Parse(parsedJson.SelectToken("profile.birthday.day").ToString()));
+            string url = parsedJson.SelectToken("profile.profile_uri").ToString();
+
+            return new YourProfileModel(name, registrationDate, birthDate, url);
         }
     }
 }

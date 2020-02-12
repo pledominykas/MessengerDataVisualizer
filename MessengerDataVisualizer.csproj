@@ -86,6 +86,7 @@
     <Compile Include="Models\FriendModel.cs" />
     <Compile Include="Models\GlobalStatisticsModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\YourProfileModel.cs" />
     <Compile Include="ParseUtils.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
     <Compile Include="ViewModels\DragArchiveDirectoryViewModel.cs" />

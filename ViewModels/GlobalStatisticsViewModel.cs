@@ -48,6 +48,30 @@ namespace MessengerDataVisualizer.ViewModels
                 return Statistics.TotalMessages;
             }
         }
+
+        public string FullName
+        {
+            get
+            {
+                return Statistics.Profile.FullName;
+            }
+        }
+
+        public string RegistrationDate
+        {
+            get
+            {
+                return Statistics.Profile.RegistrationDate.ToString("yyyy-MM-dd");
+            }
+        }
+
+        public string ProfileURL
+        {
+            get
+            {
+                return Statistics.Profile.ProfileURL;
+            }
+        }
         #endregion
 
         #region Row 1 (chats by message count)
