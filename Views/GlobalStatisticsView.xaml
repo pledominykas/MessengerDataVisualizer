@@ -12,8 +12,9 @@
     <ScrollViewer>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -25,7 +26,7 @@
             </Grid.RowDefinitions>
 
             <!--Row 0 (Messages and your info)-->
-            <Border Grid.Row="0" Grid.Column="0" Background="White" Padding="20" CornerRadius="5" Margin="20">
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="White" Padding="20" CornerRadius="5" Margin="20">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
                 </Border.Effect>
@@ -36,7 +37,7 @@
                 </StackPanel>
             </Border>
 
-            <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Background="White" Padding="20" CornerRadius="5" Margin="20">
+            <Border Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Background="White" Padding="20" CornerRadius="5" Margin="20">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
                 </Border.Effect>
@@ -44,7 +45,7 @@
             </Border>
 
             <!--Row 1 (Chats by message count)-->
-            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="White" Padding="20" CornerRadius="5" Margin="20">
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Background="White" Padding="20" CornerRadius="5" Margin="20">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
                 </Border.Effect>
@@ -76,7 +77,7 @@
             </Border>
             
             <!--Row 2 (Chats by time)-->
-            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Background="White" Padding="20" CornerRadius="5" Margin="20">
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Background="White" Padding="20" CornerRadius="5" Margin="20">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
                 </Border.Effect>
@@ -105,16 +106,60 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Grid>
-
             </Border>
             
-            <!--Row 3 (Friends by time)-->
-            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Background="White" Padding="20" CornerRadius="5" Margin="20">
+            <!--Row 3 (Friend tag count, longest friends)-->
+            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Background="White" Padding="20" CornerRadius="5" Margin="20">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
                 </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="10,0,0,15" FontSize="18" Text="Your most tagged friends:"/>
+                    <DataGrid BorderBrush="Gray" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding FriendsByTagCount}" AlternatingRowBackground="#e3e3e3" RowHeaderWidth="0"
+                              Background="#f1f1f1" IsReadOnly="True" AutoGenerateColumns="False" CanUserSortColumns="False" FontSize="14" CanUserResizeColumns="False" CanUserResizeRows="False"
+                              BorderThickness="0" GridLinesVisibility="Vertical" VerticalGridLinesBrush="LightGray">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn FontSize="14" Width="*" Header="Friend name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Comment tag count" Binding="{Binding TagCount}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </Border>
-            <!--Row 4 (Friend tag count)-->
+            
+            <Border Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Background="White" Padding="20" CornerRadius="5" Margin="20">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1" Opacity="0.3"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="10,0,0,15" FontSize="18" Text="Your longest friends:"/>
+                    <DataGrid BorderBrush="Gray" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding FriendsByTime}" AlternatingRowBackground="#e3e3e3" RowHeaderWidth="0"
+                              Background="#f1f1f1" IsReadOnly="True" AutoGenerateColumns="False" CanUserSortColumns="False" FontSize="14" CanUserResizeColumns="False" CanUserResizeRows="False"
+                              BorderThickness="0" GridLinesVisibility="Vertical" VerticalGridLinesBrush="LightGray">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="Friend name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Friends for" Binding="{Binding FriendsForTime}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
         </Grid>
     </ScrollViewer>
 </UserControl>

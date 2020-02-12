@@ -21,9 +21,6 @@ namespace MessengerDataVisualizer.Models
         public int MessagesReceived { get; private set; }
         public int TotalMessages { get; private set; }
         public List<ChatModel> ChatsByTime { get; private set; }
-        public List<FriendModel> FriendsByTime { get; private set; }
-        public List<CommentModel> CommentsByTime { get; private set; }
-        public Dictionary<FriendModel, int> FriendTagCount { get; private set; }
         
 
         public GlobalStatisticsModel(List<FriendModel> friends, List<ChatModel> chats, List<CommentModel> comments)
@@ -41,9 +38,7 @@ namespace MessengerDataVisualizer.Models
         {
             CalculateMessageCounts();
             ChatsByTime = Chats.OrderBy(chat => chat.GetFirstMessageTime()).ToList();
-            FriendsByTime = Friends.OrderBy(friend => friend.FriendshipStartTime).ToList();
-            CommentsByTime = Comments.OrderBy(comment => comment.TimeOfComment).ToList();
-            FindFriendTagCount();
+            SetFriendTagCount();
         }
 
         /// <summary>
@@ -62,14 +57,13 @@ namespace MessengerDataVisualizer.Models
         }
 
         /// <summary>
-        /// Finds how many times a friend was tagged in your comments
+        /// Sets how many times a friend was tagged in your comments
         /// </summary>
-        private void FindFriendTagCount()
+        private void SetFriendTagCount()
         {
-            FriendTagCount = new Dictionary<FriendModel, int>();
             foreach(FriendModel friend in Friends)
             {
-                FriendTagCount.Add(friend, Comments.Count(comment => comment.IncludesFriendTag(friend)));
+                friend.TagCount = Comments.Count(comment => comment.IncludesFriendTag(friend));
             }
         }
     }

@@ -15,6 +15,7 @@ namespace MessengerDataVisualizer.ViewModels
     {
         private const int ChatsByMessageCount_DISPLAY_COUNT = 15;
         private const int FirstChats_DISPLAY_COUNT = 4;
+        private const int FRIEND_TABLE_DISPLAY_COUNT = 20;
 
         public GlobalStatisticsModel Statistics { get; }
 
@@ -23,7 +24,7 @@ namespace MessengerDataVisualizer.ViewModels
             Statistics = DataInput.ReadData(archivePath);                
         }
 
-        #region Row 0
+        #region Row 0 (message count, your information)
         public int MessagesSent
         {
             get
@@ -49,7 +50,7 @@ namespace MessengerDataVisualizer.ViewModels
         }
         #endregion
 
-        #region Row 1
+        #region Row 1 (chats by message count)
         public SeriesCollection ChatsByMessageCount
         {
             get
@@ -137,7 +138,7 @@ namespace MessengerDataVisualizer.ViewModels
         }
         #endregion
 
-        #region Row 2
+        #region Row 2 (first facebook chats)
 
         private List<ChatViewModel> _firstChats = new List<ChatViewModel>();
         public List<ChatViewModel> FirstChats
@@ -166,6 +167,26 @@ namespace MessengerDataVisualizer.ViewModels
 
             NotifyOfPropertyChange(() => FirstChats);
         }
+        #endregion
+
+        #region Row 3 (friend tag count, longest friends)
+
+        public List<FriendModel> FriendsByTagCount
+        {
+            get
+            {
+                return Statistics.Friends.OrderByDescending(friend => friend.TagCount).Take(FRIEND_TABLE_DISPLAY_COUNT).Where(friend => friend.TagCount != 0).ToList();
+            }
+        }
+
+        public List<FriendModel> FriendsByTime
+        {
+            get
+            {
+                return Statistics.Friends.OrderBy(friend => friend.FriendshipStartTime).Take(FRIEND_TABLE_DISPLAY_COUNT).ToList();
+            }
+        }
+
         #endregion
 
     }
