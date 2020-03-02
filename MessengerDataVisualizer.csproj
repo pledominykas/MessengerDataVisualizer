@@ -70,6 +70,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.18.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WpfAnimatedGif.1.4.18\lib\net\WpfAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -91,6 +94,7 @@
     <Compile Include="ViewModels\ChatViewModel.cs" />
     <Compile Include="ViewModels\DragArchiveDirectoryViewModel.cs" />
     <Compile Include="ViewModels\GlobalStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\LoadingViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\ChatView.xaml.cs">
@@ -101,6 +105,9 @@
     </Compile>
     <Compile Include="Views\GlobalStatisticsView.xaml.cs">
       <DependentUpon>GlobalStatisticsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoadingView.xaml.cs">
+      <DependentUpon>LoadingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
@@ -147,6 +154,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\LoadingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,6 +168,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\PersonIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\LoadingAnimation.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
