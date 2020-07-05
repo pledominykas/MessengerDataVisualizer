@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Caliburn.Micro;
 using MessengerDataVisualizer.Models;
 
@@ -27,6 +23,18 @@ namespace MessengerDataVisualizer.ViewModels
                 _messages.Add(new MessageViewModel(Chat.Messages[i]));
 
             NotifyOfPropertyChange(() => Messages);
+        }
+
+        public void ChatMouseDown()
+        {
+            _backgroundColor = "#2195f2";
+            NotifyOfPropertyChange(() => BackgroundColor);
+        }
+
+        public void ChatMouseUp()
+        {
+            _backgroundColor = "Transparent";
+            NotifyOfPropertyChange(() => BackgroundColor);
         }
 
         BindableCollection<MessageViewModel> _messages = new BindableCollection<MessageViewModel>();
@@ -67,5 +75,13 @@ namespace MessengerDataVisualizer.ViewModels
                     return "/Assets/GroupIcon.png";
             }
         }
+
+        private string _backgroundColor;
+
+        public string BackgroundColor
+        {
+            get { return _backgroundColor; }
+        }
+
     }
 }

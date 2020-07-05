@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MessengerDataVisualizer.Views"
         mc:Ignorable="d"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         Title="Messenger Data Visualizer" Height="700" Width="1200"
         Background="#f1f1f1">
     <Grid>
@@ -33,7 +35,7 @@
                     <ItemsControl ItemsSource="{Binding Chats}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
+                                <StackPanel Background="{Binding BackgroundColor}" Orientation="Horizontal" Margin="0,3,0,3" cal:Message.Attach="[Event MouseDown] = [Action ChatMouseDown()]; [Event MouseUp] = [Action ChatMouseUp()]">
                                     <Ellipse Height="40" Width="40">
                                         <Ellipse.Fill>
                                             <ImageBrush ImageSource="{Binding ChatIcon}"/>
